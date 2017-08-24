@@ -15,7 +15,13 @@ class Subject extends BaseModel
     protected $table = 'Subjects';
     protected $fillable = array('name', 'course','term');
 
+
+    public static $SPRING_TERM = [2, 4, 6, 8];
+    public static $AUTUMN_TERM = [1, 3, 5, 7];
+
     public static function getFreeSubjects(){
 
     }
+
+
 }

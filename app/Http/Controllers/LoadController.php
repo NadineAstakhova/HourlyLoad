@@ -32,10 +32,9 @@ class LoadController extends Controller
     }
 
     public function showProf($idProf){
-        $prof = new Professors();
         return view('profile',
             array('title' => 'Profile','description' => '',
-                'page' => 'profile', 'user' => $prof->findById($idProf)));
+                'page' => 'profile', 'user' => Professors::findById($idProf)));
     }
 
 

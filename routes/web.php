@@ -23,6 +23,8 @@ Route::get('/prof','LoadController@index');
 
 Route::get('/subjects','LoadController@showSub');
 
+Route::get('/subjects/{idProf}','LoadController@showSub');
+
 Route::get('/profile/{idProf}','LoadController@showProf');
 
 Route::get('/read', function() {
