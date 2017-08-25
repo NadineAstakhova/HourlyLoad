@@ -6,7 +6,7 @@
             <h1>Список вакансий:</h1>
         </div>
     </div>
-    <div class="row center-block" >
+    <div class="row center-block">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -15,22 +15,41 @@
                     <th>Свободные часы</th>
                     <th>Курс</th>
                     <th>Семестр</th>
+                    <th style="text-align : center">Назначить <br>преподавателя</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($sub as $s)
-                    @php $freeHours = \HoursLoad\Subject::getFreeHours($s->idLoadSub, $s->hours)@endphp
-                    @if ($freeHours != 0)
+                    @php
+                        $works =  \HoursLoad\Subject::getSubjects($s->idSubjects);
+                        $allFreeHours = 0;
+                    @endphp
+                    @foreach($works as $w)
+                        @php
+                            $freeHours = \HoursLoad\Subject::getFreeHours($w->idLoadSub, $w->hours);
+                            $allFreeHours += $freeHours;
+                        @endphp
+                        @if ($freeHours != 0)
+                            <tr>
+                                <td>{{$w->name}}</td>
+                                <td>{{$w->type}}</td>
+                                <td>{{$freeHours}}</td>
+                                <td>{{$w->course}}</td>
+                                <td>{{$w->term}}</td>
+                                <td></td>
+                            </tr>
+                        @endif
+                    @endforeach
                     <tr>
-                        <td>{{$s->name}}</td>
-                        <td>{{$s->type}}</td>
-                        <td>{{$freeHours}}</td>
+                        <td><b>{{$s->name}}</b></td>
+                        <td><b>Всего свободных часов: </b></td>
+                        <td><b>{{$allFreeHours}}</b></td>
                         <td>{{$s->course}}</td>
                         <td>{{$s->term}}</td>
-                        <td><a href="{{url("addform/$idProf/$s->idSubjects")}}">Add</a></td>
+                        <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
                     </tr>
-                    @endif
                 @endforeach
+
             </tbody>
         </table>
     </div>

@@ -27,6 +27,15 @@ footer {
     margin-top: 20px;
 }
 
+.table-hover th, td{
+    text-align: center;
+}
+
+#faic{
+    font-size: 22px;
+    color:black;
+}
+
 @media (max-width: 1200px) {
     #listBtn{
         text-align: right;
@@ -48,6 +57,16 @@ footer {
 @media (max-width: 520px) {
     #listBtn{
         text-align: left;
+    }
+
+    .table-hover {
+        font-size: 8px;
+
+    }
+
+
+    #faic{
+        font-size: 14px;
     }
 }
 

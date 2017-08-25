@@ -20,10 +20,11 @@ class Subject extends BaseModel
     public static $SPRING_TERM = [2, 4, 6, 8];
     public static $AUTUMN_TERM = [1, 3, 5, 7];
 
-    public static function getSubjects(){
+    public static function getSubjects($idSubject){
         $subjects = DB::table('Subjects')
             ->join('LoadSub', 'Subjects.idSubjects', '=', 'LoadSub.fkSubject')
             ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
+            ->where('idSubjects', '=', $idSubject)
             ->get();
         return $subjects;
 
