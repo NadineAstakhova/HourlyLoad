@@ -43,13 +43,15 @@ class LoadController extends Controller
     public function addForm($idProf, $idSub){
         return view('addform',
             array('title' => 'AddForm','description' => '',
-                'page' => 'addform', 'idProf' => $idProf, 'idSub' => $idSub));
+                'page' => 'addform', 'idProf' => $idProf, 'idSub' => $idSub, 'arrLoad' => Subject::getWorksForSubject($idSub)));
     }
 
     public function updateLoad($idProf, AddLoadFormRequest $request){
         $model = new AddForm();
         $model->idProf = $idProf;
         $model->hours = $request->get('hours');
+        $model->fkLoad = $request->get('idLoadSub');
+
 
         if ($model->addLoad()){
             return "ok";
@@ -57,7 +59,7 @@ class LoadController extends Controller
         else
             return "error";
 
-       
+
 
 
        /* return view('welcome',

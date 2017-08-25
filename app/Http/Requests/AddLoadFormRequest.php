@@ -23,9 +23,14 @@ class AddLoadFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'hours' => 'required'
-        ];
+        $rules =[];
+
+        foreach($this->request->get('hours') as $key => $val)
+        {
+            $rules['hours.'.$key] = 'required';
+        }
+
+        return $rules;
     }
 
     /**
@@ -35,8 +40,12 @@ class AddLoadFormRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-            'hours.required' => 'A field is required',
-        ];
+        $messages = [];
+        foreach($this->request->get('hours') as $key => $val)
+        {
+            $messages['hours.'.$key.'.required'] = 'A field is required';
+        }
+        return $messages;
+
     }
 }

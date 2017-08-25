@@ -3,6 +3,7 @@
 namespace HoursLoad;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Subject extends BaseModel
 {
@@ -21,6 +22,19 @@ class Subject extends BaseModel
 
     public static function getFreeSubjects(){
 
+    }
+
+    public static function getWorksForSubject($idSubject){
+        $load = DB::table('LoadSub')
+            ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
+            ->join('ProfLoad', 'LoadSub.idLoadSub', '=', 'ProfLoad.fkLoaf')
+            ->where('fkSubject', '=', $idSubject)
+            ->get();
+        return $load;
+    }
+
+    public static function getSubjectName($idSubject){
+        
     }
 
 
