@@ -14,6 +14,9 @@ class Professors extends BaseModel
     public $sumHoursAutumn;
     public $sumHoursSpring;
 
+    public $idInsertLoad;
+    public $hours;
+
     private $idProf;
 
     public function __construct(array $attributes = array()) {
@@ -69,6 +72,16 @@ class Professors extends BaseModel
 
     public function getAllSumHours(){
         return $this->sumHoursSpring + $this->sumHoursAutumn;
+    }
+
+    public function addLoadForProf(){
+        $insert = DB::table('ProfLoad')->insert([
+            ['time' => $this->hours, 'fkLoaf' => 2, 'fkProf' => $this->idInsertLoad]
+        ]);
+        if ($insert)
+            return true;
+        else
+            return false;
     }
 
 

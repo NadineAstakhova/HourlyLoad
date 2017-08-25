@@ -23,6 +23,7 @@
                         <td>3</td>
                         <td>{{$s->course}}</td>
                         <td>{{$s->term}}</td>
+                        <td><a href="{{url("addform/$idProf/$s->idSubjects")}}">Add</a></td>
                     </tr>
                 @endforeach
             </tbody>
