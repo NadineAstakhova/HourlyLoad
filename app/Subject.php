@@ -20,21 +20,36 @@ class Subject extends BaseModel
     public static $SPRING_TERM = [2, 4, 6, 8];
     public static $AUTUMN_TERM = [1, 3, 5, 7];
 
-    public static function getFreeSubjects(){
+    public static function getSubjects(){
+        $subjects = DB::table('Subjects')
+            ->join('LoadSub', 'Subjects.idSubjects', '=', 'LoadSub.fkSubject')
+            ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
+            ->get();
+        return $subjects;
 
     }
 
     public static function getWorksForSubject($idSubject){
         $load = DB::table('LoadSub')
             ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
-            ->join('ProfLoad', 'LoadSub.idLoadSub', '=', 'ProfLoad.fkLoaf')
+          //  ->join('ProfLoad', 'LoadSub.idLoadSub', '=', 'ProfLoad.fkLoaf')
             ->where('fkSubject', '=', $idSubject)
             ->get();
         return $load;
     }
 
-    public static function getSubjectName($idSubject){
-        
+
+
+    public static function getSumOfLoadSub($fkLoad){
+        $sum = DB::table('ProfLoad')
+            ->where('fkLoaf', $fkLoad)
+            ->sum('time');
+        return $sum;
+    }
+
+    public static function getFreeHours($fkLoad, $allTime){
+        $loadHours = self::getSumOfLoadSub($fkLoad);
+        return $allTime - $loadHours;
     }
 
 

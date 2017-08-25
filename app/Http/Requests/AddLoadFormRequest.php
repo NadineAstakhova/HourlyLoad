@@ -25,10 +25,10 @@ class AddLoadFormRequest extends FormRequest
     {
         $rules =[];
 
-        foreach($this->request->get('hours') as $key => $val)
+       /* foreach($this->request->get('hours') as $key => $val)
         {
-            $rules['hours.'.$key] = 'required';
-        }
+            $rules['hours.'.$key] = 'valsum:';
+        }*/
 
         return $rules;
     }

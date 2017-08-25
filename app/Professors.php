@@ -78,9 +78,13 @@ class Professors extends BaseModel
     public function addLoadForProf(){
         $insert = 0;
         for ($i = 0; $i < count($this->hours); $i++)
-            $insert = DB::table('ProfLoad')->insert([
-                ['time' => $this->hours[$i], 'fkLoaf' => $this->fkLoad[$i], 'fkProf' => $this->idInsertLoad]
-            ]);
+            if(is_null($this->hours[$i]))
+                continue;
+            else {
+                $insert = DB::table('ProfLoad')->insert([
+                    ['time' => $this->hours[$i], 'fkLoaf' => $this->fkLoad[$i], 'fkProf' => $this->idInsertLoad]
+                ]);
+            }
         if ($insert)
             return true;
         else

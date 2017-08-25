@@ -20,7 +20,7 @@
                 @foreach ($sub as $s)
                     <tr>
                         <td>{{$s->name}}</td>
-                        <td>3</td>
+                        <td>{{$s->type}}</td>
                         <td>{{$s->course}}</td>
                         <td>{{$s->term}}</td>
                         <td><a href="{{url("addform/$idProf/$s->idSubjects")}}">Add</a></td>

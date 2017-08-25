@@ -18,7 +18,8 @@ class LoadController extends Controller
     public function __construct() {
        //$this->professors = Professors::all(array('firstName'));
        $this->professors = Professors::getProfessors();
-       $this->subjects = Subject::all(array('idSubjects','name', 'course', 'term'));
+      // $this->subjects = Subject::all(array('idSubjects','name', 'course', 'term'));
+        $this->subjects = Subject::getSubjects();
     }
 
     public function index() {
@@ -54,10 +55,14 @@ class LoadController extends Controller
 
 
         if ($model->addLoad()){
-            return "ok";
+
+            return
+            redirect('subjects')->with('idProf', $idProf);
         }
         else
-            return "error";
+            return redirect('subjects',
+                array('title' => 'Subjects','description' => '',
+                    'page' => 'subjects', 'sub' => $this->subjects, 'idProf' => $idProf))->with('error');
 
 
 
