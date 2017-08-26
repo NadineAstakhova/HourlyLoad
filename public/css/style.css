@@ -27,7 +27,7 @@ footer {
     margin-top: 20px;
 }
 
-.table-hover th, td{
+.table th, td{
     text-align: center;
 }
 
@@ -45,6 +45,11 @@ footer {
 
 #h3center{
     text-align: center;
+}
+
+.num{
+    width: 200px;
+    display: inline;
 }
 
 @media (min-width: 1200px) {

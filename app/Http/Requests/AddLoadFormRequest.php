@@ -24,6 +24,9 @@ class AddLoadFormRequest extends FormRequest
     public function rules()
     {
         $rules =[];
+        if(count($this->request->get('hours')) == 1){
+            $rules['hours.0'] = 'required';
+        }
 
        /* foreach($this->request->get('hours') as $key => $val)
         {

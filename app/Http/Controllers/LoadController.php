@@ -63,13 +63,10 @@ class LoadController extends Controller
 
         if ($model->addLoad()){
 
-            return
-            redirect('subjects')->with('idProf', $idProf);
+            return redirect('subjects/'.$idProf)->with('save', 'Дисциплина успешно добавлена/изменена');
         }
         else
-            return redirect('subjects',
-                array('title' => 'Subjects','description' => '',
-                    'page' => 'subjects', 'sub' => $this->subjects, 'idProf' => $idProf))->with('error');
+            return redirect('subjects/'.$idProf)->with('error', 'Ошибка записи');
 
 
 

@@ -39,8 +39,6 @@ class Subject extends BaseModel
         return $load;
     }
 
-
-
     public static function getSumOfLoadSub($fkLoad){
         $sum = DB::table('ProfLoad')
             ->where('fkLoaf', $fkLoad)
@@ -51,6 +49,13 @@ class Subject extends BaseModel
     public static function getFreeHours($fkLoad, $allTime){
         $loadHours = self::getSumOfLoadSub($fkLoad);
         return $allTime - $loadHours;
+    }
+
+    public static function getSubjectName($idSubject){
+        $subject = DB::table('Subjects')
+            ->where('idSubjects', '=', $idSubject)
+            ->first();
+        return $subject->name;
     }
 
 

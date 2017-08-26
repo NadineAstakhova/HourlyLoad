@@ -1,12 +1,24 @@
 @extends('layouts.main')
 @section('title', 'Subjects')
 @section('content')
+    <script>
+        $(document).ready(function(){
+            setTimeout(function(){$('#mesSuccessAdd').slideUp('slow')},5000);
+        });
+    </script>
     <div class="row">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href={{ url()->previous() }}>Back</a></li>
             <li class="breadcrumb-item active">Вакансии</li>
         </ol>
         <div class="col-xs-6 col-sm-8 col-lg-10">
+
+                 @php
+                     if(Session::has('save'))
+                        echo "<div class='alert alert-success' id='mesSuccessAdd'>".Session::get("save")."</div>";
+                    if(Session::has('error'))
+                        echo "<div class='alert alert-danger' id='mesSuccessAdd'>".Session::get("error")."</div>";
+                 @endphp
 
             <h1>Список вакансий:</h1>
         </div>
