@@ -66,7 +66,7 @@
                 let lable = $("#l"+this.id);
 
 
-                if(this.value > lable[0].innerHTML || this.value < 0){
+                if(Number.parseFloat(this.value) > Number.parseFloat(lable[0].innerHTML) || Number.parseFloat(this.value) < 0){
                     $(this).css({'border' : '2px solid red'});
                     $("#btn").prop('disabled', true);
                     if (stack.indexOf(this.id)==-1){
