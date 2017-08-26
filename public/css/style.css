@@ -27,13 +27,38 @@ footer {
     margin-top: 20px;
 }
 
-@media (max-width: 1200px) {
+.table th, td{
+    text-align: center;
+}
+
+#faic{
+    font-size: 22px;
+    color:black;
+}
+
+.breadcrumb{
+    background-color: white;
+    font-size: 19px;
+    padding-bottom: 0px;
+    margin-bottom: 2px;
+}
+
+#h3center{
+    text-align: center;
+}
+
+.num{
+    width: 200px;
+    display: inline;
+}
+
+@media (min-width: 1200px) {
     #listBtn{
         text-align: right;
     }
 }
 
-@media (min-width: 1000px) {
+@media (max-width: 1000px) {
     #listBtn{
         text-align: right;
     }
@@ -45,9 +70,30 @@ footer {
     }
 }
 
+@media (min-width: 768px) {
+    #listBtn{
+        text-align: right;
+    }
+}
+@media (max-width: 767px) {
+    #listBtn{
+        text-align: left;
+    }
+}
+
 @media (max-width: 520px) {
     #listBtn{
         text-align: left;
+    }
+
+    .table-hover {
+        font-size: 8px;
+
+    }
+
+
+    #faic{
+        font-size: 14px;
     }
 }
 
