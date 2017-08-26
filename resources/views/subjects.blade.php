@@ -2,11 +2,12 @@
 @section('title', 'Subjects')
 @section('content')
     <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href={{ url()->previous() }}>Back</a></li>
+            <li class="breadcrumb-item active">Вакансии</li>
+        </ol>
         <div class="col-xs-6 col-sm-8 col-lg-10">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={{ url()->previous() }}>Back</a></li>
-                <li class="breadcrumb-item active">Вакансии</li>
-            </ol>
+
             <h1>Список вакансий:</h1>
         </div>
     </div>
