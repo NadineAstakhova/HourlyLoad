@@ -25,8 +25,8 @@
         @foreach ($arrLoad as $arr)
             <tr>
                 <td>{{$arr->type}}</td>
-                <td id={{$i}}>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
-                <td> {!! Form::number('hours['.$i.']', null, ['id' => 'i-'.$i ,'step' =>'any']) !!}</td>
+                <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
+                <td> {!! Form::number('hours['.$i.']', null, ['id' => $i ,'step' =>'any']) !!}</td>
                 {!! Form::hidden('idLoadSub['.$i.']', $arr->idLoadSub) !!}
                 @php
                     $i++;
@@ -45,29 +45,47 @@
     </div>
 
     <script>
+
+
+        $(document).ready(function (e) {
+        let stack = new Array();
+        // logic
+        $(":input").bind('keyup mouseup', function () {
+            let lable = $("#l"+this.id);
+
+
+            if(this.value > lable[0].innerHTML || this.value < 0){
+                $(this).css({'border' : '2px solid red'});
+                $("#btn").prop('disabled', true);
+                if (stack.indexOf(this.id)==-1){
+                    stack.push(this.id);
+                }
+            }
+            else{
+                $(this).css({'border' : '2px solid green'});
+                if (stack.indexOf(this.id)!=-1){
+                    stack.splice(stack.indexOf(this.id),1);
+                }
+            }
+
+            if (stack.length == 0){
+                $("#btn").prop('disabled', false);
+            }
+            console.log(stack);
+
+        });
+        });
         function checkAll(i) {
             if(document.getElementById('allField').checked){
                 for (var j = 0; j < i; j++){
-                    document.getElementById("i-" + j).value = document.getElementById(j).innerHTML
+                    document.getElementById(j).value = document.getElementById("l" + j).innerHTML
                 }
             }
             else {
                 for (var j = 0; j < i; j++){
-                    document.getElementById("i-" + j).value =''
+                    document.getElementById(j).value =''
                 }
             }
-        }
-        
-        
-        function validate(i) {
-            for (var j = 0; j < i; j++){
-                if(document.getElementById("i-" + j).value > document.getElementById(j).innerHTML)
-                    document.getElementById('error').innerHTML = "ERROR";
-                else
-                    return alert(true);
-
-            }
-           //console.log(document.getElementsByName("hours")[0].value);
         }
 
 
