@@ -26,8 +26,14 @@
                         <td><a href="{{url("profile/$p->idProfessors")}}">{{$p->lastName}} {{$p->firstName}} {{$p->patronomical}}</a></td>
                         <td>{{$p->position}}</td>
                         <td>{{$p->wageRate}}</td>
-                        <td>2.9</td>
-                        <td>3.7</td>
+                        <td>@php
+                                $sumHours = \HoursLoad\Professors::getAllSumHours($p->idProfessors);
+                                echo $sumHours;
+                            @endphp
+                        </td>
+                        <td>@php
+                                echo round($sumHours / 600, 5); @endphp
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

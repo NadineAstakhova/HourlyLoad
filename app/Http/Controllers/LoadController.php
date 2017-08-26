@@ -28,6 +28,13 @@ class LoadController extends Controller
                 'page' => 'index', 'prof' => $this->professors));
     }
 
+    public function show()
+    {
+        return view('subjects',
+            array('title' => 'Subjects','description' => '',
+                'page' => 'subjects', 'sub' => $this->subjects));
+    }
+
 
     public function showSub($idProf){
         return view('subjects',
@@ -74,8 +81,5 @@ class LoadController extends Controller
     }
 
 
-    public function show($name)
-    {
-        return view('index',array('name' => $name));
-    }
+
 }

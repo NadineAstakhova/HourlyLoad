@@ -3,6 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col-xs-6 col-sm-8 col-lg-10">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href={{ url()->previous() }}>Back</a></li>
+                <li class="breadcrumb-item active">Вакансии</li>
+            </ol>
             <h1>Список вакансий:</h1>
         </div>
     </div>
@@ -15,7 +19,9 @@
                     <th>Свободные часы</th>
                     <th>Курс</th>
                     <th>Семестр</th>
-                    <th style="text-align : center">Назначить <br>преподавателя</th>
+                    @if(isset($idProf))
+                    <th>Назначить <br>преподавателя</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +52,9 @@
                         <td><b>{{$allFreeHours}}</b></td>
                         <td>{{$s->course}}</td>
                         <td>{{$s->term}}</td>
+                        @if(isset($idProf))
                         <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
+                        @endif
                     </tr>
                 @endforeach
 

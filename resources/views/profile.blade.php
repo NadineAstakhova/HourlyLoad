@@ -1,8 +1,11 @@
 @extends('layouts.main')
 @section('title', 'Profile')
 @section('content')
-    <?php $copyUser = new \HoursLoad\Professors();?>
         <div class="row">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href={{url("prof")}}>Back</a></li>
+                <li class="breadcrumb-item active">{{$user->lastName}} {{$user->firstName}}</li>
+            </ol>
             <div class="col-xs-6 col-sm-8 col-lg-10">
                 <h1>{{$user->lastName}} {{$user->firstName}} {{$user->patronomical}}</h1>
                 <h3>{{$user->position}}  Ставка</h3>
@@ -32,7 +35,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <h4>Итого по осени: <?php echo $copyUser->setHourAutumn($user->subjects);?></h4>
+            <h4>Итого по осени: <?php echo \HoursLoad\Professors::setHourAutumn($user->subjects);?></h4>
         </div>
         <div class="row center-block">
             <h3>ВЕСНА</h3>
@@ -56,7 +59,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <h4>Итого по весне: <?php echo $copyUser->setHourSpring($user->subjects);?></h4>
-            <h4>Итого всего: <?php echo $copyUser->getAllSumHours();?></h4>
+            <h4>Итого по весне: <?php echo \HoursLoad\Professors::setHourSpring($user->subjects);?></h4>
+            <h4>Итого всего: <?php echo \HoursLoad\Professors::getAllSumHours();?></h4>
         </div>
 @endsection

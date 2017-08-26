@@ -21,7 +21,7 @@ Route::get('hello/{prof}', 'LoadController@show');
 
 Route::get('/prof','LoadController@index');
 
-Route::get('/subjects','LoadController@showSub');
+Route::get('/subjects','LoadController@show');
 
 Route::get('/subjects/{idProf}','LoadController@showSub');
 Route::post('/subjects/{idProf}','LoadController@showSub');

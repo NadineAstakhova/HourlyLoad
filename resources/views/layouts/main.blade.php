@@ -16,11 +16,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">DonNU</a>
+            <a class="navbar-brand" href={{url("prof")}}>DonNU</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#">Home</a></li>
+                <li><a href={{url("prof")}}>Преподаватели</a></li>
+                <li><a href={{url("subjects")}}>Вакансии</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
         </div>

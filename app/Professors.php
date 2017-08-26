@@ -11,8 +11,8 @@ class Professors extends BaseModel
     protected $table = 'Professors';
     protected $fillable = array('firstName', 'patronomical','lastName');
 
-    public $sumHoursAutumn;
-    public $sumHoursSpring;
+    public static $sumHoursAutumn;
+    public  static $sumHoursSpring;
 
     public $idInsertLoad;
     public $hours;
@@ -53,27 +53,38 @@ class Professors extends BaseModel
         return $load;
     }
 
-    public function setHourAutumn($subjects){
-        $this->sumHoursAutumn = 0;
+    public static function setHourAutumn($subjects){
+        self::$sumHoursAutumn = 0;
         foreach ($subjects as $sub){
             if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
-                $this->sumHoursAutumn += $sub->time;
+                self::$sumHoursAutumn += $sub->time;
         }
-        return $this->sumHoursAutumn;
+        return self::$sumHoursAutumn;
     }
 
-    public function setHourSpring($subjects){
-        $this->sumHoursSpring = 0;
+    public static function setHourSpring($subjects){
+        self::$sumHoursSpring = 0;
         foreach ($subjects as $sub){
             if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
-                $this->sumHoursSpring += $sub->time;
+                self::$sumHoursSpring += $sub->time;
         }
-        return $this->sumHoursSpring;
+        return self::$sumHoursSpring;
     }
 
-    public function getAllSumHours(){
-        return $this->sumHoursSpring + $this->sumHoursAutumn;
+    public static function getAllSumHours($id = null){
+        if(is_null($id))
+           return self::$sumHoursSpring + self::$sumHoursAutumn;
+        else{
+            $subjects = self::getLoadProf($id);
+            $sum = 0;
+            foreach ($subjects as $sub){
+                $sum += $sub->time;
+            }
+            return $sum;
+        }
     }
+
+
 
     public function addLoadForProf(){
         $insert = 0;
