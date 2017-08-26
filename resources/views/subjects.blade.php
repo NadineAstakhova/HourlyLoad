@@ -59,6 +59,7 @@
                             </tr>
                         @endif
                     @endforeach
+                    @if ($allFreeHours != 0)
                     <tr>
                         <td><b>{{$s->name}}</b></td>
                         <td><b>Всего свободных часов: </b></td>
@@ -69,6 +70,7 @@
                         <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
                         @endif
                     </tr>
+                    @endif
                 @endforeach
 
             </tbody>

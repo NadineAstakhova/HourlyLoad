@@ -84,7 +84,17 @@ class Professors extends BaseModel
         }
     }
 
+    public function existLoadRow($fkLoad, $fkProf){
+        $row = DB::table('ProfLoad')
+            ->where([['fkLoaf', '=', $fkLoad],   ['fkProf', '=', $fkProf]])
+            ->first();
+        if ($row === null)
+           return null;
 
+        else
+            return $row;
+
+    }
 
     public function addLoadForProf(){
         $insert = 0;
@@ -92,9 +102,18 @@ class Professors extends BaseModel
             if(is_null($this->hours[$i]) || $this->hours[$i] == 0)
                 continue;
             else {
-                $insert = DB::table('ProfLoad')->insert([
-                    ['time' => $this->hours[$i], 'fkLoaf' => $this->fkLoad[$i], 'fkProf' => $this->idInsertLoad]
-                ]);
+                $exist = $this->existLoadRow( $this->fkLoad[$i], $this->idInsertLoad);
+                if(is_null($exist)){
+                    $insert = DB::table('ProfLoad')->insert([
+                        ['time' => $this->hours[$i], 'fkLoaf' => $this->fkLoad[$i], 'fkProf' => $this->idInsertLoad]
+                    ]);
+                }
+                else {
+                    $hours = $exist->time;
+                    $insert = DB::table('ProfLoad')
+                        ->where('idProfLoad',$exist->idProfLoad)
+                        ->update(['time' => $hours + $this->hours[$i]]);
+                }
             }
         if ($insert)
             return true;

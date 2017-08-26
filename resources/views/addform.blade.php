@@ -104,7 +104,8 @@
         function checkAll(i) {
             if(document.getElementById('allField').checked){
                 for (var j = 0; j < i; j++){
-                    document.getElementById(j).value = document.getElementById("l" + j).innerHTML
+                    document.getElementById(j).value = document.getElementById("l" + j).innerHTML;
+                    $("#btn").prop('disabled', false);
                 }
             }
             else {
