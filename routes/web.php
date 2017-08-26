@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('auth/login', 'Controller@login');
+Route::post('auth/login', 'Controller@authenticate');
+Route::get('auth/logout', 'Controller@logout');
+
+
 Route::get('hello/{prof}', 'LoadController@show');
 
 Route::get('/prof','LoadController@index');
@@ -41,3 +46,6 @@ Route::get('/read', function() {
         echo $list->firstName . ' ' . $list->lastName . '';
     }
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

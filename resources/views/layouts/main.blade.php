@@ -23,7 +23,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href={{url("prof")}}>Преподаватели</a></li>
                 <li><a href={{url("subjects")}}>Вакансии</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="{{Auth::check() ? url('auth/logout') : url('auth/login')}}">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        {{Auth::check() ? 'Logout' : 'Login'}}</a>
+                </li>
+
             </ul>
         </div>
     </div>
