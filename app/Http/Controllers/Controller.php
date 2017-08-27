@@ -25,12 +25,12 @@ class Controller extends BaseController
         if (Auth::attempt(['email' =>$request->get('email'), 'password' => $request->get('password')])) {
             return redirect()->intended('prof');
         } else {
-            return redirect()->back()->withInput()->with('message', 'Login Failed');
+            return redirect()->back()->withInput()->with('message', 'Ошибка входа! Возможно email и/или пароль не верны');
         }
     }
     public function logout(Request $request) {
         Auth::logout();
 
-        return Redirect::away('auth/login');
+        return redirect('auth/login');
     }
 }

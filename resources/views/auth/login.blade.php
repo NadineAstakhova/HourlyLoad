@@ -1,22 +1,29 @@
 @extends('layouts.main')
 @section('title', 'Login')
 @section('content')
-    @if (count($errors))
-        <ul>
-            @foreach($errors as $error)
-                <li>{!! $error !!}</li>
-            @endforeach
-        </ul>
-    @endif
+    @php
+       if(Session::has('message'))
+           echo "<div class='alert alert-danger' id='mesSuccessAdd'>".Session::get("message")."</div>";
+    @endphp
 
-    {!! Form::open(['url' => ['auth/login'], 'class'=>'form-group']) !!}
+    <div class="row">
+        <h3>Введите данные для входа</h3>
+        {!! Form::open(['url' => ['auth/login']]) !!}
+        <div class="form-group">
+            {!! Form::label('email', 'Почта') !!}
+            {!! Form::email('email', $value = null, $attributes = array('class' => 'form-control')) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('password', 'Пароль') !!}
 
-    {!! Form::email('email', $value = null, $attributes = array()) !!}
+            {!! Form::password('password', ['class' => 'form-control']) !!}
+        </div>
+        <div class="form-group">
 
-    {!! Form::password('password') !!}
+        {!! Form::submit('Login', ['class' => 'btn btn-default']) !!}
 
-    {!! Form::submit('Login', ['class' => 'btn btn-default']) !!}
-
-    {!! Form::close() !!}
+        {!! Form::close() !!}
+        </div>
+    </div>
 
 @endsection

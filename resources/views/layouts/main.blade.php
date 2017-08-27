@@ -21,8 +21,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href={{url("prof")}}>Преподаватели</a></li>
-                <li><a href={{url("subjects")}}>Вакансии</a></li>
+                @if (Auth::check())
+                    <li><a href={{url("prof")}}>Преподаватели</a></li>
+                    <li><a href={{url("subjects")}}>Вакансии</a></li>
+                @endif
                 <li><a href="{{Auth::check() ? url('auth/logout') : url('auth/login')}}">
                         <span class="glyphicon glyphicon-log-in"></span>
                         {{Auth::check() ? 'Logout' : 'Login'}}</a>

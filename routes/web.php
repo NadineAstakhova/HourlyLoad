@@ -24,18 +24,18 @@ Route::get('auth/logout', 'Controller@logout');
 
 Route::get('hello/{prof}', 'LoadController@show');
 
-Route::get('/prof','LoadController@index');
+Route::get('/prof','LoadController@index')->middleware('auth');
 
-Route::get('/subjects','LoadController@show');
+Route::get('/subjects','LoadController@show')->middleware('auth');
 
-Route::get('/subjects/{idProf}','LoadController@showSub');
-Route::post('/subjects/{idProf}','LoadController@showSub');
+Route::get('/subjects/{idProf}','LoadController@showSub')->middleware('auth');
+Route::post('/subjects/{idProf}','LoadController@showSub')->middleware('auth');
 
-Route::get('/profile/{idProf}','LoadController@showProf');
+Route::get('/profile/{idProf}','LoadController@showProf')->middleware('auth');
 
-Route::get('/addform/{idProf}/{idSub}','LoadController@addForm');
+Route::get('/addform/{idProf}/{idSub}','LoadController@addForm')->middleware('auth');
 
-Route::post('/updateLoad/{idProf}', 'LoadController@updateLoad');
+Route::post('/updateLoad/{idProf}', 'LoadController@updateLoad')->middleware('auth');
 
 Route::get('/read', function() {
     $professors = new Professors();
@@ -48,4 +48,3 @@ Route::get('/read', function() {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

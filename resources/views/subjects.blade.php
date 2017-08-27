@@ -8,7 +8,7 @@
     </script>
     <div class="row">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href={{ url()->previous() }}>Back</a></li>
+            <li class="breadcrumb-item"><a href={{isset($idProf) ? url()->to('profile/'.$idProf) :  url()->previous()}}>Back</a></li>
             <li class="breadcrumb-item active">Вакансии</li>
         </ol>
         <div class="col-xs-6 col-sm-8 col-lg-10">

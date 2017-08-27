@@ -4,7 +4,7 @@
 
     <div class="row" >
         <div class="col-xs-6 col-sm-8 col-lg-8">
-            <h1>Список преподавателей:</h1> {{Auth::check() }}
+            <h1>Список преподавателей:</h1>
         </div>
         <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
             <a href="subjects" class="btn btn-default" id="listSub">Список вакансий</a>
