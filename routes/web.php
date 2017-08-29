@@ -13,16 +13,12 @@
 
 use HoursLoad\Professors;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Controller@login');
 
 Route::get('auth/login', 'Controller@login');
 Route::post('auth/login', 'Controller@authenticate');
 Route::get('auth/logout', 'Controller@logout');
 
-
-Route::get('hello/{prof}', 'LoadController@show');
 
 Route::get('/prof','LoadController@index')->middleware('auth');
 
@@ -37,14 +33,5 @@ Route::get('/addform/{idProf}/{idSub}','LoadController@addForm')->middleware('au
 
 Route::post('/updateLoad/{idProf}', 'LoadController@updateLoad')->middleware('auth');
 
-Route::get('/read', function() {
-    $professors = new Professors();
-    
-    $data = $professors->all(array('firstName','lastName'));
-
-    foreach ($data as $list) {
-        echo $list->firstName . ' ' . $list->lastName . '';
-    }
-});
 Auth::routes();
 
