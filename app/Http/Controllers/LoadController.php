@@ -68,14 +68,37 @@ class LoadController extends Controller
         else
             return redirect('subjects/'.$idProf)->with('error', 'Ошибка записи');
 
+    }
+
+    public function delete($idProf, $idSub){
+        Professors::deleteLoadForProf($idProf,$idSub);
+        return redirect()->back();
+    }
+
+    public function updateForm($idProf, $idSub){
+        return view('addform',
+            array('title' => 'AddForm','description' => '',
+                'page' => 'addform', 'idProf' => $idProf, 'idSub' => $idSub,
+                'arrLoad' => Professors::getWorksForProfSubject($idProf,$idSub)));
+    }
+
+    public function updateLoadProf($idProf, AddLoadFormRequest $request){
+        $model = new AddForm();
+        $model->idProf = $idProf;
+        $model->hours = $request->get('hours');
+        $model->fkLoad = $request->get('idProfLoad');
 
 
+        if ($model->updateLoad()){
 
-       /* return view('welcome',
-            array($model->hours))
-            ->with('message', 'Your category has been created!');*/
+            return redirect('profile/'.$idProf)->with('save', 'Дисциплина успешно изменена');
+        }
+        else
+            return redirect('profile/'.$idProf)->with('error', 'Ошибка записи');
 
     }
+
+
 
 
 

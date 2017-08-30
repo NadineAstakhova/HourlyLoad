@@ -1,11 +1,30 @@
 @extends('layouts.main')
 @section('title', 'Profile')
 @section('content')
+    <script>
+        $(document).ready(function (e) {
+            $('#delete_btn').on('click', function () {
+                return confirm('Вы уверены, что хотите убрать всю нагрузку по предмету для преподавателя?');
+            });
+        });
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip({placement: "bottom"});
+        });
+        $(document).ready(function(){
+            setTimeout(function(){$('#mesSuccessAdd').slideUp('slow')},5000);
+        });
+    </script>
         <div class="row">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href={{url("prof")}}>Back</a></li>
                 <li class="breadcrumb-item active">{{$user->lastName}} {{$user->firstName}}</li>
             </ol>
+            @php
+                if(Session::has('save'))
+                   echo "<div class='alert alert-success' id='mesSuccessAdd'>".Session::get("save")."</div>";
+               if(Session::has('error'))
+                   echo "<div class='alert alert-danger' id='mesSuccessAdd'>".Session::get("error")."</div>";
+            @endphp
             <div class="col-xs-6 col-sm-8 col-lg-8">
                 <h1>{{$user->lastName}} {{$user->firstName}} {{$user->patronomical}}</h1>
                 <h4>Должность: {{$user->position}}</h4>
@@ -31,7 +50,16 @@
                 @foreach ($user->subjects as $sub)
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
-                        <td>{{$sub->name}}</td>
+                        <td>{{$sub->name}}
+                            <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" id="delete_btn"
+                               data-toggle="tooltip" title="Снять дисциплину полностью">
+                                <i class="fa fa-remove sng-red"></i>
+                            </a>
+                            <a href="{{url("update/$user->idProfessors/$sub->idSubjects")}}" id="update_btn"
+                               data-toggle="tooltip" title="Изменить дисциплину">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
                         <td>{{$sub->type}}</td>
                         <td>{{$sub->time}}</td>
                     </tr>
@@ -55,7 +83,16 @@
                 @foreach ($user->subjects as $sub)
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
-                        <td>{{$sub->name}}</td>
+                        <td>{{$sub->name}}
+                            <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" id="delete_btn"
+                               data-toggle="tooltip" title="Снять дисциплину полностью">
+                                <i class="fa fa-remove sng-red"></i>
+                            </a>
+                            <a href="{{url("update/$user->idProfessors/$sub->idSubjects")}}" id="update_btn"
+                               data-toggle="tooltip" title="Изменить дисциплину">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
                         <td>{{$sub->type}}</td>
                         <td>{{$sub->time}}</td>
                     </tr>

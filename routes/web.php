@@ -13,31 +13,31 @@
 
 use HoursLoad\Professors;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Controller@login');
 
-Route::get('hello/{prof}', 'LoadController@show');
+Route::get('auth/login', 'Controller@login');
+Route::post('auth/login', 'Controller@authenticate');
+Route::get('auth/logout', 'Controller@logout');
 
-Route::get('/prof','LoadController@index');
 
-Route::get('/subjects','LoadController@show');
+Route::get('/prof','LoadController@index')->middleware('auth');
 
-Route::get('/subjects/{idProf}','LoadController@showSub');
-Route::post('/subjects/{idProf}','LoadController@showSub');
+Route::get('/subjects','LoadController@show')->middleware('auth');
 
-Route::get('/profile/{idProf}','LoadController@showProf');
+Route::get('/subjects/{idProf}','LoadController@showSub')->middleware('auth');
+Route::post('/subjects/{idProf}','LoadController@showSub')->middleware('auth');
 
-Route::get('/addform/{idProf}/{idSub}','LoadController@addForm');
+Route::get('/profile/{idProf}','LoadController@showProf')->middleware('auth');
 
-Route::post('/updateLoad/{idProf}', 'LoadController@updateLoad');
+Route::get('/addform/{idProf}/{idSub}','LoadController@addForm')->middleware('auth');
 
-Route::get('/read', function() {
-    $professors = new Professors();
-    
-    $data = $professors->all(array('firstName','lastName'));
+Route::post('/updateLoad/{idProf}', 'LoadController@updateLoad')->middleware('auth');
 
-    foreach ($data as $list) {
-        echo $list->firstName . ' ' . $list->lastName . '';
-    }
-});
+Route::get('/delete/{idProf}/{idSubjects}','LoadController@delete')->middleware('auth');
+
+Route::get('/update/{idProf}/{idSub}','LoadController@updateForm')->middleware('auth');
+
+Route::post('/updateLoadProf/{idProf}', 'LoadController@updateLoadProf')->middleware('auth');
+
+Auth::routes();
+

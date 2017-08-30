@@ -53,6 +53,15 @@ class Professors extends BaseModel
         return $load;
     }
 
+    public static function getWorksForProfSubject($idProf, $idSubject){
+        $load = DB::table('LoadSub')
+            ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
+            ->join('ProfLoad', 'LoadSub.idLoadSub', '=', 'ProfLoad.fkLoaf')
+            ->where([['fkSubject', '=', $idSubject], ['fkProf', '=', $idProf]])
+            ->get();
+        return $load;
+    }
+
     public static function setHourAutumn($subjects){
         self::$sumHoursAutumn = 0;
         foreach ($subjects as $sub){
@@ -119,6 +128,33 @@ class Professors extends BaseModel
             return true;
         else
             return false;
+    }
+
+    public static function deleteLoadForProf($idProf, $idSub){
+        $loadsSub = Subject::getWorksForSubject($idSub);
+        foreach ($loadsSub as $load)
+            DB::table('ProfLoad')->where([['fkLoaf','=',$load->idLoadSub],['fkProf', '=', $idProf]])->delete();
+        return true;
+    }
+
+    public function updateLoadForProf($fkProfLoads){
+        $update = 0;
+        for ($i = 0; $i < count($this->hours); $i++) {
+            if (is_null($this->hours[$i]))
+                continue;
+            if($this->hours[$i] == 0)
+            {
+                $update = DB::table('ProfLoad')->where('idProfLoad','=',$fkProfLoads[$i])->delete();
+            }
+            else {
+                $update = DB::table('ProfLoad')
+                    ->where('idProfLoad', $fkProfLoads[$i])
+                    ->update(['time' => $this->hours[$i]]);
+            }
+        }
+
+            return true;
+
     }
 
 

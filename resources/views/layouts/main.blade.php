@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -21,9 +22,15 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href={{url("prof")}}>Преподаватели</a></li>
-                <li><a href={{url("subjects")}}>Вакансии</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                @if (Auth::check())
+                    <li><a href={{url("prof")}}>Преподаватели</a></li>
+                    <li><a href={{url("subjects")}}>Вакансии</a></li>
+                @endif
+                <li><a href="{{Auth::check() ? url('auth/logout') : url('auth/login')}}">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        {{Auth::check() ? 'Logout' : 'Login'}}</a>
+                </li>
+
             </ul>
         </div>
     </div>
