@@ -22,9 +22,12 @@
             <thead>
             <tr>
                 <th>Тип работы</th>
-                <th>Свободные часы</th>
+
                 @if (Request::is('update/*'))
                     <th>Возможные часы</th>
+                    <th>Ваши часы</th>
+                    @else
+                    <th>Свободные часы</th>
                 @endif
                 <th>Введите часы</th>
             </tr>
@@ -41,8 +44,8 @@
             <tr>
                 <td>{{$arr->type}}</td>
                 @if (Request::is('update/*'))
-                    <td>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
                     <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours, $idProf);  @endphp</td>
+                    <td>{{$arr->time}}</td>
                     @else
                     <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
                 @endif
