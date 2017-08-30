@@ -35,5 +35,9 @@ Route::post('/updateLoad/{idProf}', 'LoadController@updateLoad')->middleware('au
 
 Route::get('/delete/{idProf}/{idSubjects}','LoadController@delete')->middleware('auth');
 
+Route::get('/update/{idProf}/{idSub}','LoadController@updateForm')->middleware('auth');
+
+Route::post('/updateLoadProf/{idProf}', 'LoadController@updateLoadProf')->middleware('auth');
+
 Auth::routes();
 

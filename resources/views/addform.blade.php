@@ -5,11 +5,9 @@
     <div class="row">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href={{ url()->previous() }}>Back</a></li>
-            <li class="breadcrumb-item active">Добавление дисциплины</li>
+            <li class="breadcrumb-item active">Изменение дисциплины</li>
         </ol>
-        <h1>Добавить нагрузку для @php echo \HoursLoad\Subject::getSubjectName($idSub); @endphp </h1>
-
-
+        <h1>Изменить нагрузку для @php echo \HoursLoad\Subject::getSubjectName($idSub); @endphp </h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -25,19 +23,33 @@
             <tr>
                 <th>Тип работы</th>
                 <th>Свободные часы</th>
+                @if (Request::is('update/*'))
+                    <th>Возможные часы</th>
+                @endif
                 <th>Введите часы</th>
             </tr>
             </thead>
             <tbody>
-            {!! Form::open(['url' => ['updateLoad', $idProf], 'class'=>'form-group']) !!}
+            @if (Request::is('update/*'))
+                {!! Form::open(['url' => ['updateLoadProf', $idProf], 'class'=>'form-group']) !!}
+            @else
+                {!! Form::open(['url' => ['updateLoad', $idProf], 'class'=>'form-group']) !!}
+            @endif
+
             @php $i=0; @endphp
         @foreach ($arrLoad as $arr)
             <tr>
                 <td>{{$arr->type}}</td>
-                <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
+                @if (Request::is('update/*'))
+                    <td>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
+                    <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours, $idProf);  @endphp</td>
+                    @else
+                    <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
+                @endif
                 <td> {!! Form::number('hours['.$i.']', null,
                 ['id' => $i ,'class' => 'form-control num','step' =>'any',  'placeholder'=>"1.2"]) !!}</td>
-                {!! Form::hidden('idLoadSub['.$i.']', $arr->idLoadSub) !!}
+                {!! isset($arr->idProfLoad) ? Form::hidden('idProfLoad['.$i.']', $arr->idProfLoad) :
+                        Form::hidden('idLoadSub['.$i.']', $arr->idLoadSub) !!}
                 @php
                     $i++;
                 @endphp
@@ -59,7 +71,7 @@
     </div>
 
     <script>
-        $(document).ready(function (e) {
+      $(document).ready(function (e) {
             let stack = new Array();
             let correct_num = new Array();
             $(":input").bind('keyup mouseup', function () {

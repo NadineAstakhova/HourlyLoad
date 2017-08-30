@@ -47,8 +47,19 @@ class Subject extends BaseModel
         return $sum;
     }
 
-    public static function getFreeHours($fkLoad, $allTime){
-        $loadHours = self::getSumOfLoadSub($fkLoad);
+    public static function getSumOfLoadPSub($fkLoad, $fkProf){
+        $sum = DB::table('ProfLoad')
+            ->where([['fkLoaf', $fkLoad], ['fkProf', '!=', $fkProf]])
+            ->sum('time');
+        return $sum;
+    }
+
+    public static function getFreeHours($fkLoad, $allTime, $fkProf = null){
+        $loadHours = 0;
+        if(isset($fkProf))
+            $loadHours = self::getSumOfLoadPSub($fkLoad, $fkProf);
+        else
+            $loadHours = self::getSumOfLoadSub($fkLoad);
         return $allTime - $loadHours;
     }
 
