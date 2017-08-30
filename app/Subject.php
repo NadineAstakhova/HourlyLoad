@@ -25,6 +25,7 @@ class Subject extends BaseModel
             ->join('LoadSub', 'Subjects.idSubjects', '=', 'LoadSub.fkSubject')
             ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
             ->where('idSubjects', '=', $idSubject)
+            ->groupBy('Subjects.idSubjects')
             ->get();
         return $subjects;
 
@@ -57,6 +58,8 @@ class Subject extends BaseModel
             ->first();
         return $subject->name;
     }
+
+
 
 
 }
