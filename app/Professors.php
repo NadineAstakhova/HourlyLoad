@@ -121,5 +121,12 @@ class Professors extends BaseModel
             return false;
     }
 
+    public static function deleteLoadForProf($idProf, $idSub){
+        $loadsSub = Subject::getWorksForSubject($idSub);
+        foreach ($loadsSub as $load)
+            DB::table('ProfLoad')->where([['fkLoaf','=',$load->idLoadSub],['fkProf', '=', $idProf]])->delete();
+        return true;
+    }
+
 
 }

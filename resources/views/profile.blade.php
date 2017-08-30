@@ -1,6 +1,13 @@
 @extends('layouts.main')
 @section('title', 'Profile')
 @section('content')
+    <script>
+        $(document).ready(function (e) {
+            $('#delete_btn').on('click', function () {
+                return confirm('Are you sure?');
+            });
+        });
+    </script>
         <div class="row">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href={{url("prof")}}>Back</a></li>
@@ -31,7 +38,7 @@
                 @foreach ($user->subjects as $sub)
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
-                        <td>{{$sub->name}}</td>
+                        <td>{{$sub->name}} <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" id="delete_btn">X</a></td>
                         <td>{{$sub->type}}</td>
                         <td>{{$sub->time}}</td>
                     </tr>
@@ -55,7 +62,7 @@
                 @foreach ($user->subjects as $sub)
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
-                        <td>{{$sub->name}}</td>
+                        <td>{{$sub->name}} <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" id="delete_btn">X</a></td>
                         <td>{{$sub->type}}</td>
                         <td>{{$sub->time}}</td>
                     </tr>

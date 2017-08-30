@@ -77,6 +77,11 @@ class LoadController extends Controller
 
     }
 
+    public function delete($idProf, $idSub){
+        Professors::deleteLoadForProf($idProf,$idSub);
+        return redirect()->back();
+    }
+
 
 
 }
