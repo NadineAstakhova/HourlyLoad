@@ -47,8 +47,8 @@ class Professors extends BaseModel
             ->join('Professors', 'ProfLoad.fkProf', '=', 'Professors.idProfessors')
             ->join('LoadSub', 'ProfLoad.fkLoaf', '=', 'LoadSub.idLoadSub')
             ->join('Subjects', 'LoadSub.fkSubject', '=', 'Subjects.idSubjects')
-            ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
             ->where('idProfessors', '=', $id)
+            ->groupBy('Subjects.idSubjects')
             ->get();
         return $load;
     }

@@ -18,5 +18,13 @@ class TypeOfWork extends BaseModel
         return $subject;
     }
 
+    public static function getTimeForProfType($idProf, $idType, $idSubject){
+        $subject = DB::table('ProfLoad')
+            ->join('LoadSub', 'ProfLoad.fkLoaf', '=', 'LoadSub.idLoadSub')
+            ->where([['ProfLoad.fkProf', '=', $idProf],['LoadSub.fkType', '=', $idType], ['LoadSub.fkSubject', '=', $idSubject]])
+            ->get();
+        return $subject;
+    }
+
 
 }
