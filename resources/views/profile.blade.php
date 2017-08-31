@@ -42,12 +42,21 @@
                 <thead>
                 <tr>
                     <th>Предмет</th>
-                    <th>Вид работы</th>
-                    <th>Часы</th>
+                    <th>Курс</th>
+                    <th>Семестр</th>
+                    @php
+                        $types = \HoursLoad\TypeOfWork::all(array('idTypeOfWork','type'));
+                        $hourAutumn = 0;
+                        $hourSpring = 0;
+                     foreach ($types as $type)
+                         echo "<th>".$type->type."</th>";
+                    @endphp
+                    <th>Итого</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($user->subjects as $sub)
+                    @php  $sumSubHours = 0 @endphp
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
                         <td>{{$sub->name}}
@@ -60,14 +69,24 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </td>
-                        <td>{{$sub->type}}</td>
-                        <td>{{$sub->time}}</td>
+                        <td>{{$sub->course}}</td>
+                        <td>{{$sub->term}}</td>
+                        @foreach ($types as $type)
+                            @php
+                                $t = \HoursLoad\TypeOfWork::getTimeForProfType($user->idProfessors, $type->idTypeOfWork,
+                                                                                $sub->idSubjects);
+                            $sumSubHours += (count($t) > 0) ? $t[0]->time : 0;
+                            @endphp
+                            <td>{{(count($t) > 0) ? $t[0]->time : 0}}</td>
+                        @endforeach
+                        <td>{{$sumSubHours}}</td>
+                        @php  $hourAutumn += $sumSubHours; @endphp
                     </tr>
                     @endif
                 @endforeach
                 </tbody>
             </table>
-            <h4>Итого по осени: <?php echo \HoursLoad\Professors::setHourAutumn($user->subjects);?></h4>
+            <h4>Итого по осени: {{$hourAutumn}}</h4>
         </div>
         <div class="row center-block">
             <h3 id="h3center">ВЕСНА</h3>
@@ -75,12 +94,19 @@
                 <thead>
                 <tr>
                     <th>Предмет</th>
-                    <th>Вид работы</th>
-                    <th>Часы</th>
+                    <th>Курс</th>
+                    <th>Семестр</th>
+                    @php
+                        $types = \HoursLoad\TypeOfWork::all(array('idTypeOfWork','type'));
+                     foreach ($types as $type)
+                         echo "<th>".$type->type."</th>";
+                    @endphp
+                    <th>Итого</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($user->subjects as $sub)
+                    @php  $sumSubHours = 0 @endphp
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
                         <td>{{$sub->name}}
@@ -93,14 +119,24 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </td>
-                        <td>{{$sub->type}}</td>
-                        <td>{{$sub->time}}</td>
+                        <td>{{$sub->course}}</td>
+                        <td>{{$sub->term}}</td>
+                        @foreach ($types as $type)
+                            @php
+                                $t = \HoursLoad\TypeOfWork::getTimeForProfType($user->idProfessors, $type->idTypeOfWork,
+                                                                               $sub->idSubjects);
+                                $sumSubHours += (count($t) > 0) ? $t[0]->time : 0;
+                            @endphp
+                            <td>{{(count($t) > 0) ? $t[0]->time : 0}}</td>
+                        @endforeach
+                        <td>{{$sumSubHours}}</td>
+                        @php  $hourSpring += $sumSubHours; @endphp
                     </tr>
                     @endif
                 @endforeach
                 </tbody>
             </table>
-            <h4>Итого по весне: <?php echo \HoursLoad\Professors::setHourSpring($user->subjects);?></h4>
-            <h4><b>Итого всего: <?php echo \HoursLoad\Professors::getAllSumHours();?></b></h4>
+            <h4>Итого по весне: {{$hourSpring}}</h4>
+            <h4><b>Итого всего: {{$hourSpring + $hourAutumn}}</b></h4>
         </div>
 @endsection
