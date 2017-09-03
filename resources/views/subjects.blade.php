@@ -32,6 +32,7 @@
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
+                        $countOfFreeSub = 0;
                        $types = \HoursLoad\TypeOfWork::all(array('idTypeOfWork','type'));
                     foreach ($types as $type)
                         echo "<th>".$type->type."</th>";
@@ -60,11 +61,12 @@
                                 <td>{{$w->term}}</td>
                                 @foreach ($types as $type)
                                     @php
+                                        $countOfFreeSub++;
                                         $t = \HoursLoad\TypeOfWork::getTimeForType($w->idSubjects, $type->idTypeOfWork);
                                         $freeHours = (count($t) > 0) ?
-                                                    \HoursLoad\Subject::getFreeHours($t[0]->idLoadSub, $t[0]->hours) :
-                                                    0;
-                                     $allFreeHours += $freeHours;
+                                                        \HoursLoad\Subject::getFreeHours($t[0]->idLoadSub, $t[0]->hours) :
+                                                        0;
+                                         $allFreeHours += $freeHours;
                                     @endphp
                                         <td>{{$freeHours}}</td>
                                 @endforeach
@@ -75,15 +77,14 @@
                                 @endif
                             </tr>
                         @endif
-
                     @endforeach
-
-
-
-
                 @endforeach
-
             </tbody>
         </table>
+
+        @if($countOfFreeSub == 0)
+            <h3 style="text-align: center">Нет вакансий</h3>
+        @endif
+
     </div>
 @endsection
