@@ -28,6 +28,7 @@
             <thead>
                 <tr>
                     <th>Предмет</th>
+                    <th>Специальность</th>
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
@@ -54,6 +55,7 @@
                         @if($freeHour > 0)
                             <tr>
                                 <td>{{$w->name}}</td>
+                                <td>{{$w->specialty}}</td>
                                 <td>{{$w->course}}</td>
                                 <td>{{$w->term}}</td>
                                 @foreach ($types as $type)

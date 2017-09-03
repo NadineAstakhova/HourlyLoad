@@ -39,10 +39,11 @@
         <div class="row center-block">
             <h3 id="h3center">Перечень дисциплин:</h3>
             <h3 id="h3center">ОСЕНЬ</h3>
-            <table class="table table-hover ">
+            <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
                     <th>Предмет</th>
+                    <th>Специальность</th>
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
@@ -70,6 +71,7 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </td>
+                        <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
                         <td>{{$sub->term}}</td>
                         @foreach ($types as $type)
@@ -91,10 +93,11 @@
         </div>
         <div class="row center-block">
             <h3 id="h3center">ВЕСНА</h3>
-            <table class="table table-hover ">
+            <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
                     <th>Предмет</th>
+                    <th>Специальность</th>
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
@@ -120,6 +123,7 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </td>
+                        <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
                         <td>{{$sub->term}}</td>
                         @foreach ($types as $type)

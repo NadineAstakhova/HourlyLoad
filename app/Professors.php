@@ -26,15 +26,16 @@ class Professors extends BaseModel
 
     public static function getProfessors(){
         $professors = DB::table('Professors')
-            ->crossJoin('Positions')
+            ->join('Positions', 'Professors.fkPosition','=','Positions.idPositions')
             ->select('Professors.*', 'Positions.name as position')
+          //  ->groupBy('Professors.idProfessors')
             ->get();
         return $professors;
     }
 
     public static function findById($id){
         $professor = DB::table('Professors')
-            ->crossJoin('Positions')
+            ->join('Positions', 'Professors.fkPosition','=','Positions.idPositions')
             ->select('Professors.*', 'Positions.name as position')
             ->where('idProfessors', '=', $id)
             ->first();
