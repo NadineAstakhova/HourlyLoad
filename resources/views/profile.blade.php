@@ -3,9 +3,10 @@
 @section('content')
     <script>
         $(document).ready(function (e) {
-            $('#delete_btn').on('click', function () {
+            $('.delete_btn').on('click', function () {
                 return confirm('Вы уверены, что хотите убрать всю нагрузку по предмету для преподавателя?');
             });
+
         });
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip({placement: "bottom"});
@@ -60,7 +61,7 @@
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
                         <td>{{$sub->name}}
-                            <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" id="delete_btn"
+                            <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
                             </a>
@@ -110,7 +111,7 @@
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
                         <td>{{$sub->name}}
-                            <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" id="delete_btn"
+                            <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
                             </a>

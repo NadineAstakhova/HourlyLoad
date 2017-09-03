@@ -152,9 +152,18 @@ class Professors extends BaseModel
                     ->update(['time' => $this->hours[$i]]);
             }
         }
-
             return true;
 
+    }
+
+    public static function getLoadWage(){
+        $row = DB::table('Global_info')
+            ->first();
+        if ($row === null)
+            return 1;
+
+        else
+            return $row->loadWageRate;
     }
 
 

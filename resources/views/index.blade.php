@@ -32,7 +32,7 @@
                                 echo $sumHours;
                             @endphp
                         </td>
-                        <td>@php  echo round($sumHours / 600, 5); @endphp
+                        <td>@php echo round($sumHours / \HoursLoad\Professors::getLoadWage(), 2); @endphp
                         </td>
                     </tr>
                 @endforeach

@@ -49,10 +49,9 @@
                     @endphp
                     @foreach($works as $w)
                         @php
-                            $freeHour = \HoursLoad\Subject::getFreeHours($w->idLoadSub, $w->hours);
-                            //$allFreeHours += $freeHours;
+                            $freeHour = \HoursLoad\Subject::getAllTime($w->idSubjects) - \HoursLoad\Subject::getAllLoadsTime($w->idSubjects);
                         @endphp
-                            @if ($freeHour != 0)
+                        @if($freeHour > 0)
                             <tr>
                                 <td>{{$w->name}}</td>
                                 <td>{{$w->course}}</td>
@@ -73,7 +72,7 @@
                                     <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
                                 @endif
                             </tr>
-                            @endif
+                        @endif
 
                     @endforeach
 
