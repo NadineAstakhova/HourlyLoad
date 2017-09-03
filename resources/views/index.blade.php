@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row center-block">
-        <table class="table table-hover ">
+        <table class="table table-hover" style="font-size: 14px">
             <thead>
                 <tr>
                     <th>ФИО</th>

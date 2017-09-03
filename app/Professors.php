@@ -54,6 +54,16 @@ class Professors extends BaseModel
         return $load;
     }
 
+    public static function getLoadPr($id){
+        $load = DB::table('ProfLoad')
+            ->join('Professors', 'ProfLoad.fkProf', '=', 'Professors.idProfessors')
+            ->join('LoadSub', 'ProfLoad.fkLoaf', '=', 'LoadSub.idLoadSub')
+            ->join('Subjects', 'LoadSub.fkSubject', '=', 'Subjects.idSubjects')
+            ->where('idProfessors', '=', $id)
+            ->get();
+        return $load;
+    }
+
     public static function getWorksForProfSubject($idProf, $idSubject){
         $load = DB::table('LoadSub')
             ->join('TypeOfWork', 'LoadSub.fkType', '=', 'TypeOfWork.idTypeOfWork')
@@ -85,7 +95,7 @@ class Professors extends BaseModel
         if(is_null($id))
            return self::$sumHoursSpring + self::$sumHoursAutumn;
         else{
-            $subjects = self::getLoadProf($id);
+            $subjects = self::getLoadPr($id);
             $sum = 0;
             foreach ($subjects as $sub){
                 $sum += $sub->time;

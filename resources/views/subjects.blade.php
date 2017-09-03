@@ -23,10 +23,13 @@
         </div>
     </div>
 
-    <div class="row center-block">
-        <table class="table table-hover">
+    <div class="row center-block hoverT">
+        <table class="table table-hover ">
             <thead>
                 <tr>
+                    @if(isset($idProf))
+                        <th>Назначить <br>препода-<br>вателя</th>
+                    @endif
                     <th>Предмет</th>
                     <th>Специальность</th>
                     <th>Курс</th>
@@ -38,9 +41,6 @@
                         echo "<th>".$type->type."</th>";
                     @endphp
                     <th>Итого</th>
-                    @if(isset($idProf))
-                    <th>Назначить <br>преподавателя</th>
-                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +55,9 @@
                         @endphp
                         @if($freeHour > 0)
                             <tr>
+                                @if(isset($idProf))
+                                    <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
+                                @endif
                                 <td>{{$w->name}}</td>
                                 <td>{{$w->specialty}}</td>
                                 <td>{{$w->course}}</td>
@@ -72,9 +75,6 @@
                                 @endforeach
 
                                 <td>{{$allFreeHours}}</td>
-                                @if(isset($idProf))
-                                    <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
-                                @endif
                             </tr>
                         @endif
                     @endforeach

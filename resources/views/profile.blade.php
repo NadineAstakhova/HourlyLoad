@@ -27,11 +27,12 @@
                    echo "<div class='alert alert-danger' id='mesSuccessAdd'>".Session::get("error")."</div>";
             $hourAutumn = 0;
             $hourSpring = 0;
+            $sumHours = \HoursLoad\Professors::getAllSumHours($user->idProfessors);
             @endphp
             <div class="col-xs-6 col-sm-8 col-lg-8">
                 <h1>{{$user->lastName}} {{$user->firstName}} {{$user->patronomical}}</h1>
                 <h4>Должность: {{$user->position}}</h4>
-                <h4>Ставка: </h4>
+                <h4>Ставка: {{round($sumHours / \HoursLoad\Professors::getLoadWage(), 2)}} </h4>
             </div>
             <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
                 <a href="{{url("subjects/$user->idProfessors")}}" class="btn btn-default btn-lg" id="listSub">Список вакансий</a>
@@ -42,6 +43,7 @@
             <h3 id="h3center">Перечень дисциплин:</h3>
             <h3 id="h3center">ОСЕНЬ</h3>
             @if(\HoursLoad\Professors::setHourAutumn($user->subjects) != 0)
+            <div class="hoverT">
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -90,13 +92,15 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
             <h4>Итого по осени: {{$hourAutumn}}</h4>
             @else
-                <h4>Нет вакансий для преподавателя</h4>
+                <h4>Нет нагрузки у преподавателяя</h4>
             @endif
         </div>
         <div class="row center-block">
             <h3 id="h3center">ВЕСНА</h3>
+            <div class="hoverT">
             @if(\HoursLoad\Professors::setHourSpring($user->subjects) != 0)
             <table class="table table-hover table-bordered">
                 <thead>
@@ -146,9 +150,10 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
             <h4>Итого по весне: {{$hourSpring}}</h4>
             @else
-                <h4>Нет вакансий для преподавателя</h4>
+                <h4>Нет нагрузки у преподавателя</h4>
             @endif
             <h4><b>Итого всего: {{$hourSpring + $hourAutumn}}</b></h4>
         </div>
