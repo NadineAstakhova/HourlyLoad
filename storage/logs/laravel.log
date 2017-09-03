@@ -6744,3 +6744,6 @@ Stack trace:
 #51 C:\OpenServer\domains\laravel\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(116): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #52 C:\OpenServer\domains\laravel\public\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #53 {main}  
+[2017-09-03 09:06:22] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected ';'' in C:\OpenServer\domains\laravel\storage\framework\views\6789c838c65692e0ce378014db8a81e08419181d.php:56
+Stack trace:
+#0 {main}  

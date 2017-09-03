@@ -63,6 +63,21 @@ class Subject extends BaseModel
         return $allTime - $loadHours;
     }
 
+    public static function getAllTime($idSubject){
+        $sum = DB::table('LoadSub')
+            ->where('fkSubject', '=', $idSubject)
+            ->sum('hours');
+        return $sum;
+    }
+
+    public static function getAllLoadsTime($idSubject){
+        $sum = DB::table('LoadSub')
+            ->join('ProfLoad', 'LoadSub.idLoadSub', '=', 'ProfLoad.fkLoaf')
+            ->where('fkSubject', '=', $idSubject)
+            ->sum('time');
+        return $sum;
+    }
+
     public static function getSubjectName($idSubject){
         $subject = DB::table('Subjects')
             ->where('idSubjects', '=', $idSubject)
