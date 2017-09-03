@@ -49,7 +49,7 @@
                     @else
                     <td id='l{{$i}}'>@php  echo \HoursLoad\Subject::getFreeHours($arr->idLoadSub, $arr->hours);  @endphp</td>
                 @endif
-                <td> {!! Form::number('hours['.$i.']', null,
+                <td> {!! Form::number('hours['.$i.']', isset($arr->idProfLoad) ? $arr->time : null,
                 ['id' => $i ,'class' => 'form-control num','step' =>'any',  'placeholder'=>"1.2"]) !!}</td>
                 {!! isset($arr->idProfLoad) ? Form::hidden('idProfLoad['.$i.']', $arr->idProfLoad) :
                         Form::hidden('idLoadSub['.$i.']', $arr->idLoadSub) !!}
@@ -67,7 +67,7 @@
         <br>
         {!! Form::submit('Save', ['class' => 'btn btn-default', 'id' => 'btn', 'disabled' => 'true']) !!}
 
-
+        <a class="btn btn-default btn-close" href="{{ url()->previous() }}">Cancel</a>
 
         {!! Form::close() !!}
         <p id="error"></p>
