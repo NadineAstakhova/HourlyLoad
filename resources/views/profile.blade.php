@@ -64,7 +64,7 @@
                     @php  $sumSubHours = 0 @endphp
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
-                        <td>{{$sub->name}}
+                        <td><b>{{$sub->name}}</b>
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -122,7 +122,7 @@
                     @php  $sumSubHours = 0 @endphp
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
-                        <td>{{$sub->name}}
+                        <td><b>{{$sub->name}}</b>
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>

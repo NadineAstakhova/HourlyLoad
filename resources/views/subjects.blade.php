@@ -58,7 +58,7 @@
                                 @if(isset($idProf))
                                     <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
                                 @endif
-                                <td>{{$w->name}}</td>
+                                <td><b>{{$w->name}}</b></td>
                                 <td>{{$w->specialty}}</td>
                                 <td>{{$w->course}}</td>
                                 <td>{{$w->term}}</td>

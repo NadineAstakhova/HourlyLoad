@@ -18,7 +18,7 @@ class LoadController extends Controller
     public function __construct() {
        //$this->professors = Professors::all(array('firstName'));
        $this->professors = Professors::getProfessors();
-       $this->subjects = Subject::all(array('idSubjects','name', 'course', 'term'));
+       $this->subjects = Subject::getAll();
        // $this->subjects = Subject::getSubjects();
     }
 

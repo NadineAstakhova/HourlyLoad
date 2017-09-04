@@ -50,6 +50,8 @@ class Professors extends BaseModel
             ->join('Subjects', 'LoadSub.fkSubject', '=', 'Subjects.idSubjects')
             ->where('idProfessors', '=', $id)
             ->groupBy('Subjects.idSubjects')
+            ->orderBy('Subjects.course', 'ASC')
+            ->orderBy('Subjects.name', 'ASC')
             ->get();
         return $load;
     }
