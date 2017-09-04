@@ -23,22 +23,24 @@
         </div>
     </div>
 
-    <div class="row center-block">
-        <table class="table table-hover">
+    <div class="row center-block hoverT">
+        <table class="table table-hover ">
             <thead>
                 <tr>
+                    @if(isset($idProf))
+                        <th>Назначить <br>препода-<br>вателя</th>
+                    @endif
                     <th>Предмет</th>
+                    <th>Специальность</th>
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
+                        $countOfFreeSub = 0;
                        $types = \HoursLoad\TypeOfWork::all(array('idTypeOfWork','type'));
                     foreach ($types as $type)
                         echo "<th>".$type->type."</th>";
                     @endphp
                     <th>Итого</th>
-                    @if(isset($idProf))
-                    <th>Назначить <br>преподавателя</th>
-                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -53,35 +55,36 @@
                         @endphp
                         @if($freeHour > 0)
                             <tr>
-                                <td>{{$w->name}}</td>
+                                @if(isset($idProf))
+                                    <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
+                                @endif
+                                <td><b>{{$w->name}}</b></td>
+                                <td>{{$w->specialty}}</td>
                                 <td>{{$w->course}}</td>
                                 <td>{{$w->term}}</td>
                                 @foreach ($types as $type)
                                     @php
+                                        $countOfFreeSub++;
                                         $t = \HoursLoad\TypeOfWork::getTimeForType($w->idSubjects, $type->idTypeOfWork);
                                         $freeHours = (count($t) > 0) ?
-                                                    \HoursLoad\Subject::getFreeHours($t[0]->idLoadSub, $t[0]->hours) :
-                                                    0;
-                                     $allFreeHours += $freeHours;
+                                                        \HoursLoad\Subject::getFreeHours($t[0]->idLoadSub, $t[0]->hours) :
+                                                        0;
+                                         $allFreeHours += $freeHours;
                                     @endphp
                                         <td>{{$freeHours}}</td>
                                 @endforeach
 
                                 <td>{{$allFreeHours}}</td>
-                                @if(isset($idProf))
-                                    <td><a href="{{url("addform/$idProf/$s->idSubjects")}}"><i class="fa fa-plus-circle" id="faic"></i></a></td>
-                                @endif
                             </tr>
                         @endif
-
                     @endforeach
-
-
-
-
                 @endforeach
-
             </tbody>
         </table>
+
+        @if($countOfFreeSub == 0)
+            <h3 style="text-align: center">Нет вакансий</h3>
+        @endif
+
     </div>
 @endsection

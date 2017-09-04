@@ -18,7 +18,7 @@ class LoadController extends Controller
     public function __construct() {
        //$this->professors = Professors::all(array('firstName'));
        $this->professors = Professors::getProfessors();
-       $this->subjects = Subject::all(array('idSubjects','name', 'course', 'term'));
+       $this->subjects = Subject::getAll();
        // $this->subjects = Subject::getSubjects();
     }
 
@@ -35,12 +35,19 @@ class LoadController extends Controller
                 'page' => 'subjects', 'sub' => $this->subjects));
     }
 
+    public function showAllSubjects(){
+        return view('allsubjects',
+            array('title' => 'Subjects','description' => '',
+                'page' => 'subjects', 'sub' => $this->subjects));
+    }
 
     public function showSub($idProf){
         return view('subjects',
             array('title' => 'Subjects','description' => '',
                 'page' => 'subjects', 'sub' => $this->subjects, 'idProf' => $idProf));
     }
+
+
 
     public function showProf($idProf){
         return view('profile',

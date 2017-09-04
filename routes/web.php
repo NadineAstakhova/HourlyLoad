@@ -24,6 +24,8 @@ Route::get('/prof','LoadController@index')->middleware('auth');
 
 Route::get('/subjects','LoadController@show')->middleware('auth');
 
+Route::get('/allsubjects','LoadController@showAllSubjects')->middleware('auth');
+
 Route::get('/subjects/{idProf}','LoadController@showSub')->middleware('auth');
 Route::post('/subjects/{idProf}','LoadController@showSub')->middleware('auth');
 

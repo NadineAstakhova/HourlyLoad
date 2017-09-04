@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -25,6 +26,7 @@
                 @if (Auth::check())
                     <li><a href={{url("prof")}}>Преподаватели</a></li>
                     <li><a href={{url("subjects")}}>Вакансии</a></li>
+                    <li><a href={{url("allsubjects")}}>Вся нагрузка</a></li>
                 @endif
                 <li><a href="{{Auth::check() ? url('auth/logout') : url('auth/login')}}">
                         <span class="glyphicon glyphicon-log-in"></span>

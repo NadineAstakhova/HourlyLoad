@@ -25,11 +25,14 @@
                    echo "<div class='alert alert-success' id='mesSuccessAdd'>".Session::get("save")."</div>";
                if(Session::has('error'))
                    echo "<div class='alert alert-danger' id='mesSuccessAdd'>".Session::get("error")."</div>";
+            $hourAutumn = 0;
+            $hourSpring = 0;
+            $sumHours = \HoursLoad\Professors::getAllSumHours($user->idProfessors);
             @endphp
             <div class="col-xs-6 col-sm-8 col-lg-8">
                 <h1>{{$user->lastName}} {{$user->firstName}} {{$user->patronomical}}</h1>
                 <h4>Должность: {{$user->position}}</h4>
-                <h4>Ставка: </h4>
+                <h4>Ставка: {{round($sumHours / \HoursLoad\Professors::getLoadWage(), 2)}} </h4>
             </div>
             <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
                 <a href="{{url("subjects/$user->idProfessors")}}" class="btn btn-default btn-lg" id="listSub">Список вакансий</a>
@@ -39,16 +42,17 @@
         <div class="row center-block">
             <h3 id="h3center">Перечень дисциплин:</h3>
             <h3 id="h3center">ОСЕНЬ</h3>
-            <table class="table table-hover ">
+            @if(\HoursLoad\Professors::setHourAutumn($user->subjects) != 0)
+            <div class="hoverT">
+            <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
                     <th>Предмет</th>
+                    <th>Специальность</th>
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
                         $types = \HoursLoad\TypeOfWork::all(array('idTypeOfWork','type'));
-                        $hourAutumn = 0;
-                        $hourSpring = 0;
                      foreach ($types as $type)
                          echo "<th>".$type->type."</th>";
                     @endphp
@@ -60,7 +64,7 @@
                     @php  $sumSubHours = 0 @endphp
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
-                        <td>{{$sub->name}}
+                        <td><b>{{$sub->name}}</b>
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -70,6 +74,7 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </td>
+                        <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
                         <td>{{$sub->term}}</td>
                         @foreach ($types as $type)
@@ -87,14 +92,21 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
             <h4>Итого по осени: {{$hourAutumn}}</h4>
+            @else
+                <h4>Нет нагрузки у преподавателяя</h4>
+            @endif
         </div>
         <div class="row center-block">
             <h3 id="h3center">ВЕСНА</h3>
-            <table class="table table-hover ">
+            <div class="hoverT">
+            @if(\HoursLoad\Professors::setHourSpring($user->subjects) != 0)
+            <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
                     <th>Предмет</th>
+                    <th>Специальность</th>
                     <th>Курс</th>
                     <th>Семестр</th>
                     @php
@@ -110,7 +122,7 @@
                     @php  $sumSubHours = 0 @endphp
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
-                        <td>{{$sub->name}}
+                        <td><b>{{$sub->name}}</b>
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -120,6 +132,7 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </td>
+                        <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
                         <td>{{$sub->term}}</td>
                         @foreach ($types as $type)
@@ -137,7 +150,11 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
             <h4>Итого по весне: {{$hourSpring}}</h4>
+            @else
+                <h4>Нет нагрузки у преподавателя</h4>
+            @endif
             <h4><b>Итого всего: {{$hourSpring + $hourAutumn}}</b></h4>
         </div>
 @endsection

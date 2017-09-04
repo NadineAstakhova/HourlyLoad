@@ -8,10 +8,11 @@
         </div>
         <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
             <a href="subjects" class="btn btn-default" id="listSub">Список вакансий</a>
+            <a href="allsubjects" class="btn btn-default" id="listSub">Вся нагрузка</a>
         </div>
     </div>
     <div class="row center-block">
-        <table class="table table-hover ">
+        <table class="table table-hover" style="font-size: 14px">
             <thead>
                 <tr>
                     <th>ФИО</th>
