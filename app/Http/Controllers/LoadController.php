@@ -35,12 +35,19 @@ class LoadController extends Controller
                 'page' => 'subjects', 'sub' => $this->subjects));
     }
 
+    public function showAllSubjects(){
+        return view('allsubjects',
+            array('title' => 'Subjects','description' => '',
+                'page' => 'subjects', 'sub' => $this->subjects));
+    }
 
     public function showSub($idProf){
         return view('subjects',
             array('title' => 'Subjects','description' => '',
                 'page' => 'subjects', 'sub' => $this->subjects, 'idProf' => $idProf));
     }
+
+
 
     public function showProf($idProf){
         return view('profile',
