@@ -14,7 +14,25 @@
         $(document).ready(function(){
             setTimeout(function(){$('#mesSuccessAdd').slideUp('slow')},5000);
         });
+
+        $(document).ready(function(){
+            $('#print').click(function(){
+                var printing_css = "<style media=print>" +
+                    "#listBtn, .breadcrumb, .delete_btn, #update_btn{display: none;}" +
+                    "table{text-align: center} </style>";
+                var html_to_print=printing_css+$('#to_print').html();
+                var iframe=$('<iframe id="print_frame">');
+                $('body').append(iframe);
+                var doc = $('#print_frame')[0].contentDocument || $('#print_frame')[0].contentWindow.document;
+                var win = $('#print_frame')[0].contentWindow || $('#print_frame')[0];
+                doc.getElementsByTagName('body')[0].innerHTML=html_to_print;
+
+
+                win.print();
+                $('iframe').remove();
+            }); });
     </script>
+    <div id='to_print'>
         <div class="row">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href={{url("prof")}}>Back</a></li>
@@ -36,6 +54,7 @@
             </div>
             <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
                 <a href="{{url("subjects/$user->idProfessors")}}" class="btn btn-default btn-lg" id="listSub">Список вакансий</a>
+                <button class="btn btn-default btn-lg" id="print">Печать</button>
             </div>
 
         </div>
@@ -157,4 +176,5 @@
             @endif
             <h4><b>Итого всего: {{$hourSpring + $hourAutumn}}</b></h4>
         </div>
+    </div>
 @endsection

@@ -23,7 +23,7 @@ footer {
     padding: 0;;
 }
 
-#listSub{
+#listSub, #print{
     margin-top: 20px;
 }
 
@@ -72,7 +72,27 @@ footer {
     border-top-color: #9d9d9d;
 }
 
+#print_frame{
+    display: none;
+}
 
+@media (min-width: 1400px) {
+    #listBtn{
+        text-align: right;
+    }
+    .sng-red {
+        font-size: 16px  !important;
+    }
+    .hoverT{
+        margin-left: -110px;
+        overflow-x: auto;
+        margin-right: -110px;
+    }
+    .table-hover {
+        font-size: 11px;
+    }
+
+}
 
 
 @media (min-width: 1200px) {
@@ -95,8 +115,9 @@ footer {
 
 @media (max-width: 1100px){
     .hoverT{
-        margin-left: 0px;
-        overflow-x: scroll;
+        margin-left: -110px;
+        overflow-x: auto;
+        margin-right: -110px;
     }
     .table-hover {
         font-size: 11px;
@@ -166,6 +187,26 @@ footer {
 
     #faic{
         font-size: 14px;
+    }
+}
+
+@media print{
+
+   .listBtn{
+       display: none;
+   }
+    .breadcrumb, .delete_btn, #update_btn{
+        display: none;
+    }
+    .hoverT{
+        margin-left: -110px;
+
+        margin-right: -110px;
+        width: 1400px;
+
+    }
+    .table-hover {
+        font-size: 11px;
     }
 }
 
