@@ -15,6 +15,7 @@
         <table class="table table-hover ">
             <thead>
             <tr>
+                <th>№</th>
                 <th>Предмет</th>
                 <th>Специальность</th>
                 <th>Курс</th>
@@ -28,6 +29,7 @@
                         echo "<th>".$types[$i]->type."</th>";
                         $allHoursForType[$i] = 0;
                     }
+                    $j=0;
 
                 @endphp
                 <th>Итого</th>
@@ -38,9 +40,11 @@
                 @php
                     $works =  \HoursLoad\Subject::getSubjects($s->idSubjects);
                     $allHours = 0;
+                    $j++;
                 @endphp
                 @foreach($works as $w)
                         <tr>
+                            <td>{{$j}}</td>
                             <td><b>{{$w->name}}</b></td>
                             <td>{{$w->specialty}}</td>
                             <td>{{$w->course}}</td>
@@ -60,7 +64,7 @@
                 @endforeach
             @endforeach
             <tr id="sumH">
-                <td colspan="4">Итого</td>
+                <td colspan="5">Итого</td>
                 @for($i = 0; $i < count($types); $i++)
                     <td>{{$allHoursForType[$i]}}</td>
                 @endfor
