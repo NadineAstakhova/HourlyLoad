@@ -189,5 +189,13 @@ class Professors extends BaseModel
         return $professor;
     }
 
+    public static function getIdProfByFKUser($idUser){
+        $professor = DB::table('Professors')
+            ->select('Professors.idProfessors')
+            ->where('fkUser', '=', $idUser)
+            ->first();
+        return $professor->idProfessors;
+    }
+
 
 }

@@ -19,7 +19,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href={{url("prof")}}>Система распределения нагрузки кафедры КТ</a>
+            <a class="navbar-brand" href={{Auth::check() && Auth::user()->role == 1 ? url("prof/1" ) :  url("prof/2" )}}>Система распределения нагрузки кафедры КТ</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
@@ -29,7 +29,7 @@
                     <li><a href={{url("allsubjects")}}>Вся нагрузка</a></li>
                 @endif
                     @if ( Auth::check() && Auth::user()->role == 2)
-                        <li><a href={{url("prof")}}>Изменить пароль</a></li>
+                        <li><a href={{url("resetpass")}}>Изменить пароль</a></li>
                     @endif
                 <li><a href="{{Auth::check() ? url('auth/logout') : url('auth/login')}}">
                         <span class="glyphicon glyphicon-log-in"></span>

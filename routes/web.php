@@ -42,5 +42,9 @@ Route::get('/update/{idProf}/{idSub}','LoadController@updateForm')->middleware('
 
 Route::post('/updateLoadProf/{idProf}', 'LoadController@updateLoadProf')->middleware('auth');
 
+Route::get('/resetpass','Controller@resetPage')->middleware('auth');
+
+Route::post('/updatePass', 'Controller@updatePass')->middleware('auth');
+
 Auth::routes();
 

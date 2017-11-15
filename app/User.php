@@ -4,6 +4,7 @@ namespace HoursLoad;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use DB;
 
 class User extends Authenticatable
 {
@@ -28,5 +29,13 @@ class User extends Authenticatable
     ];
 
     protected $primaryKey = 'idUser';
+
+    public static function changePass($id, $pass){
+        $update = DB::table('Users')
+            ->where('idUser',$id)
+            ->update(['password' =>$pass]);
+        return true;
+
+    }
 
 }

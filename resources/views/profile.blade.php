@@ -88,6 +88,7 @@
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
                         <td><b>{{$sub->name}}</b>
+                            @if( Auth::user()->role != '2')
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -96,6 +97,7 @@
                                data-toggle="tooltip" title="Изменить дисциплину">
                                 <i class="fa fa-pencil"></i>
                             </a>
+                            @endif
                         </td>
                         <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
@@ -146,6 +148,7 @@
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
                         <td><b>{{$sub->name}}</b>
+                            @if( Auth::user()->role != '2')
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -154,6 +157,7 @@
                                data-toggle="tooltip" title="Изменить дисциплину">
                                 <i class="fa fa-pencil"></i>
                             </a>
+                            @endif
                         </td>
                         <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
