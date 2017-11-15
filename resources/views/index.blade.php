@@ -7,7 +7,7 @@
             <h1>Список преподавателей:</h1>
         </div>
         <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
-            <a href="subjects" class="btn btn-default" id="listSub">Список вакансий</a>
+            <a href="{{url("subjects")}}" class="btn btn-default" id="listSub">Список вакансий</a>
             <a href="allsubjects" class="btn btn-default" id="listSub">Вся нагрузка</a>
         </div>
     </div>

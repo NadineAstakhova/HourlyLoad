@@ -34,10 +34,12 @@
     </script>
     <div id='to_print'>
         <div class="row">
+            @if( Auth::user()->role != '2')
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={{url("prof")}}>Back</a></li>
+                <li class="breadcrumb-item"><a href={{url("prof/1")}}>Back</a></li>
                 <li class="breadcrumb-item active">{{$user->lastName}} {{$user->firstName}}</li>
             </ol>
+            @endif
             @php
                 if(Session::has('save'))
                    echo "<div class='alert alert-success' id='mesSuccessAdd'>".Session::get("save")."</div>";
@@ -53,7 +55,9 @@
                 <h4>Ставка: {{round($sumHours / \HoursLoad\Professors::getLoadWage(), 2)}} </h4>
             </div>
             <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
+                @if( Auth::user()->role != '2')
                 <a href="{{url("subjects/$user->idProfessors")}}" class="btn btn-default btn-lg" id="listSub">Список вакансий</a>
+                @endif
                 <button class="btn btn-default btn-lg" id="print">Печать</button>
             </div>
 

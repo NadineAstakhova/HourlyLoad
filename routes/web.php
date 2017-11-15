@@ -15,12 +15,13 @@ use HoursLoad\Professors;
 
 Route::get('/', 'Controller@login');
 
+
 Route::get('auth/login', 'Controller@login');
 Route::post('auth/login', 'Controller@authenticate');
 Route::get('auth/logout', 'Controller@logout');
 
 
-Route::get('/prof','LoadController@index')->middleware('auth');
+Route::get('/prof/{role}','LoadController@index')->middleware('auth');
 
 Route::get('/subjects','LoadController@show')->middleware('auth');
 

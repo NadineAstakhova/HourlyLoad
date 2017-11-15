@@ -23,14 +23,14 @@ class Controller extends BaseController
     public function authenticate(Request $request) {
 
         if (Auth::attempt(['email' =>$request->get('email'), 'password' => $request->get('password')])) {
-            return redirect()->intended('prof');
+            return redirect()->intended('prof/'.  Auth::user()->role);
         } else {
             return redirect()->back()->withInput()->with('message', 'Ошибка входа! Возможно email и/или пароль не верны');
         }
     }
     public function logout(Request $request) {
         Auth::logout();
-
         return redirect('auth/login');
     }
+
 }

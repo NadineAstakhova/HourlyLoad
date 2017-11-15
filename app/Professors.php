@@ -179,5 +179,15 @@ class Professors extends BaseModel
             return $row->loadWageRate;
     }
 
+    public static function getProfByFKUser($idUser){
+        $professor = DB::table('Professors')
+            ->join('Positions', 'Professors.fkPosition','=','Positions.idPositions')
+            ->select('Professors.*', 'Positions.name as position')
+            ->where('fkUser', '=', $idUser)
+            ->first();
+        $professor->subjects= self::getLoadProf($professor->idProfessors);
+        return $professor;
+    }
+
 
 }
