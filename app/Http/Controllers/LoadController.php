@@ -7,6 +7,7 @@ use HoursLoad\Http\Requests\AddLoadFormRequest;
 use HoursLoad\Professors;
 use HoursLoad\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class LoadController extends Controller
@@ -22,10 +23,17 @@ class LoadController extends Controller
        // $this->subjects = Subject::getSubjects();
     }
 
-    public function index() {
-        return view('index',
-            array('title' => 'Welcome','description' => '',
-                'page' => 'index', 'prof' => $this->professors));
+    public function index($role) {
+        if($role == '1')
+            return view('index',
+                array('title' => 'Welcome','description' => '',
+                    'page' => 'index', 'prof' => $this->professors));
+        if ($role == '2'){
+            return view('profile',
+                array('title' => 'Profile','description' => '',
+                    'page' => 'profile', 'user' => Professors::getProfByFKUser(Auth::user()->idUser)));
+
+        }
     }
 
     public function show()

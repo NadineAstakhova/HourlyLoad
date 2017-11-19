@@ -80,6 +80,10 @@ footer {
     display: none;
 }
 
+.error{
+    color: red
+}
+
 @media (min-width: 1400px) {
     #listBtn{
         text-align: right;

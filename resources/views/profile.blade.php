@@ -34,10 +34,12 @@
     </script>
     <div id='to_print'>
         <div class="row">
+            @if( Auth::user()->role != '2')
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={{url("prof")}}>Back</a></li>
+                <li class="breadcrumb-item"><a href={{url("prof/1")}}>Back</a></li>
                 <li class="breadcrumb-item active">{{$user->lastName}} {{$user->firstName}}</li>
             </ol>
+            @endif
             @php
                 if(Session::has('save'))
                    echo "<div class='alert alert-success' id='mesSuccessAdd'>".Session::get("save")."</div>";
@@ -53,7 +55,9 @@
                 <h4>Ставка: {{round($sumHours / \HoursLoad\Professors::getLoadWage(), 2)}} </h4>
             </div>
             <div class="col-xs-8 col-sm-4 col-lg-4" id="listBtn">
+                @if( Auth::user()->role != '2')
                 <a href="{{url("subjects/$user->idProfessors")}}" class="btn btn-default btn-lg" id="listSub">Список вакансий</a>
+                @endif
                 <button class="btn btn-default btn-lg" id="print">Печать</button>
             </div>
 
@@ -84,6 +88,7 @@
                     @if (in_array($sub->term,\HoursLoad\Subject::$AUTUMN_TERM))
                     <tr>
                         <td><b>{{$sub->name}}</b>
+                            @if( Auth::user()->role != '2')
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -92,6 +97,7 @@
                                data-toggle="tooltip" title="Изменить дисциплину">
                                 <i class="fa fa-pencil"></i>
                             </a>
+                            @endif
                         </td>
                         <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
@@ -142,6 +148,7 @@
                     @if (in_array($sub->term,\HoursLoad\Subject::$SPRING_TERM))
                     <tr>
                         <td><b>{{$sub->name}}</b>
+                            @if( Auth::user()->role != '2')
                             <a href="{{url("delete/$user->idProfessors/$sub->idSubjects")}}" class="delete_btn"
                                data-toggle="tooltip" title="Снять дисциплину полностью">
                                 <i class="fa fa-remove sng-red"></i>
@@ -150,6 +157,7 @@
                                data-toggle="tooltip" title="Изменить дисциплину">
                                 <i class="fa fa-pencil"></i>
                             </a>
+                            @endif
                         </td>
                         <td>{{$sub->specialty}}</td>
                         <td>{{$sub->course}}</td>
